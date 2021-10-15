@@ -9,7 +9,7 @@ class Card {
 
     equals(card) {
 
-        if(card.pips === 0){
+        if(this.pips === 0){
             let cardValue = 14;
             return cardValue;
         }else {
@@ -20,8 +20,9 @@ class Card {
 
     }
 
-    beats(card1, card2) {
-        if( card1.equals(card1) > card2.equals(card2) ) {
+    beats(card2) {
+        const card1 = this;
+        if(card1.equals(card1) > card2.equals(card2) ) {
            return true;
         }else {
             return false;
@@ -94,7 +95,7 @@ class Player {
     }
 
     awardPoints(player1Card, player2Card) {
-        if( player1Card.beats(player1Card, player2Card) ) {
+        if( player1Card.beats(player2Card) ) {
             this.points += 1;
         }else {
             return 0;
@@ -118,6 +119,9 @@ function playWar() {
     let p1 = new Player("Alice");
     let p2 = new Player("Bob");
     deck.dealAllToPlayers(p1, p2);
+    p1.reportHand();
+    console.log('--------------');
+    p2.reportHand();
     
     for( let i = 0; i < 26; i++) {
         let p1Card = p1.playCard();
@@ -141,5 +145,4 @@ function playWar() {
         p2.reportPoints();  
     }
 }
-
 playWar();
